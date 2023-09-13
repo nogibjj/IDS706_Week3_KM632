@@ -1,0 +1,59 @@
+name: cicd
+
+on: #on key is used to specify the events that trigger the workflow
+  push: #event type 
+    branches: [ "main" ]  
+  pull_request: #event type 
+    branches: [ "main" ] 
+  workflow_dispatch:
+  #schedule: Triggered based on a scheduled time.
+    #- cron: '0 0 * * *'
+
+jobs: # Key is used to define one or more individual jobs that make up the workflow.
+      # Each job represents a specific set of actions, commands, or tasks that you want 
+      # to execute as part of your CI/CD (Continuous Integration/Continuous Deployment) pipeline.
+  init_build: # Purpose of "init_build" job is to prepare your code for further stages
+              # Note init_build is just a job name - can be anhthing else
+    runs-on: ubuntu-latest # "runs-on" key determines the OS and env. steps will execute within
+    steps: # steps key is used to define a sequence of individual tasks or 
+           # steps that should be executed as part of a job (init_build) in your workflow.
+           # steps are executed sequentially
+       
+      - uses: actions/checkout@v2 #checks out (clones) the source code of your GitHub repo into the runner's workspace (built-in Action)
+                                  # The "uses" key specifies which GitHub Action or action template should be used for this step
+     # if multi line is used do (note | is used): 
+      #name: Build and Test
+        #run: |
+          #make build
+          #make test
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: make install
+
+      - name: Lint 
+        run: make lint
+        # Linting is the process of automatically analyzing source code to find and flag 
+        # programming errors, bugs, stylistic issues, and other potential problems 
+        # Can flag security hazards like SQL injection etc... as well
+        # In Python, pylint and flake8 are popular linters.
+        # In JavaScript, ESLint is widely used.
+        # In C/C++, cppcheck and ClangTidy are common choices.
+      
+      - name: Format
+        run: make format
+        # applies consistent and standardized style to your code. 
+        # Often uses "black" in python;
+        # "Prettier for Javascript"
+        # "ClangFormat" for C/C++
+      
+      - name: Test
+        run: make test
+        # run tests on your codebase
+
+      
+          
+
+
