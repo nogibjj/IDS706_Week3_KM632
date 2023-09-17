@@ -1,5 +1,7 @@
 import polars as pl
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+
 import locale
 
 
@@ -29,11 +31,23 @@ def create_graph(df):
     )
     x = country_expenses["School Country"]
     y = country_expenses["Total Expenses"]
-    plt.bar(x, y, color="blue")
-    plt.xlabel("School Country")
-    plt.ylabel("Total Expenses")
-    plt.title("Total Expenses by School Country")
-    plt.xticks(rotation=90)
+
+    fig, ax = plt.subplots()
+    ax.bar(x, y, color="blue")
+    ax.set_xlabel("School Country")
+    ax.set_ylabel("Total Expenses")
+    ax.set_title("Total Expenses by School Country")
+    print(fig)
+
+    def currency_formatter(x, pos):
+        if pos:
+            return f"${int(x):,}"
+
+    ax.yaxis.set_major_formatter(ticker.FuncFormatter(currency_formatter))
+
+    ax.set_xticks(range(len(x)))
+    ax.set_xticklabels(x, rotation=90)
+
     plt.tight_layout()
     plt.savefig("total_expenses_by_country.png")
 
