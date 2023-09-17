@@ -1,5 +1,3 @@
-[![cicd](https://github.com/nogibjj/IDS706_Template_KM632/actions/workflows/python.yml/badge.svg)](https://github.com/nogibjj/IDS706_Template_KM632/actions/workflows/python.yml)
-
 Since early 2000s Mongolain government started providing tuition assistant programs to high school students who are accepted to the top 100 universities in the world. The government paid for all educational expenses including tuition, boarding etc. Per the program contract, students were expected to go back to Mongolia and work for at least 3 years after graduation. 
 
 Recently, the high percentage of people who don't follow through with the contract obligation became a huge social issue in Mongolia. In this report, we take a look the what the mean, median of the student loan amounts were as well as the standard deviation 
